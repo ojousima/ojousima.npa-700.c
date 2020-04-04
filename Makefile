@@ -215,10 +215,13 @@ INCLUDES+=src/
 INC_PARAMS=$(foreach d, $(INCLUDES), -I$d)
 SOURCES=src/npa_700.c
 OBJECTS=$(SOURCES:.c=.o)
+EXECUTABLE=npa-driver
 
 .PHONY: clean doxygen
 
-all: clean $(SOURCES)
+all: clean $(SOURCES) $(EXECUTABLE) 
+
+$(EXECUTABLE): $(OBJECTS)
 
 .c.o:
 # Build
