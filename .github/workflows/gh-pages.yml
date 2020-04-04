@@ -24,7 +24,7 @@ jobs:
 
     # Install Doxygen
     - name: Install Doxygen
-      - sudo apt-get install -qq doxygen 
+      run: sudo apt-get install -qq doxygen 
 
     # Generate doxygen
     - name: Generate docs
