@@ -12,8 +12,8 @@
  *
  * User must provide I2C write- and read functions as function pointers on initialization.
  * It is critical to ensure that write- and read functions will never block.
+ * @{
  */
-/*@{*/
 /**
  * @file npa_700.h
  * @author Otso Jousimaa <otso@ojousima.net>
