@@ -1,5 +1,12 @@
-var npa__700_8h =
+var group___n_p_a_700 =
 [
+    [ "npa_700.h", "npa__700_8h.html", null ],
+    [ "npa_ctx_t", "structnpa__ctx__t.html", [
+      [ "model", "structnpa__ctx__t.html#a526e3e9b49202cd10c32445c2be5cad4", null ],
+      [ "npa_addr", "structnpa__ctx__t.html#a970429fc678b87d639968afd8376a9af", null ],
+      [ "read", "structnpa__ctx__t.html#a9f037058b5bf6bacd57edf4b0a15691a", null ],
+      [ "write", "structnpa__ctx__t.html#ad6071ddcd1d473eafa786b29d95fe33c", null ]
+    ] ],
     [ "NPA_ERR_IMPL", "group___n_p_a-700.html#gac558fabed12b27ab486487883f8d22dd", null ],
     [ "NPA_ERR_NACK", "group___n_p_a-700.html#gab7ffcaa94811108f819e5e4a05162b9b", null ],
     [ "NPA_ERR_NULL", "group___n_p_a-700.html#ga86146b723e295a59845314a65f96f32f", null ],
