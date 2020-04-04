@@ -3,6 +3,8 @@ Driver for NPA-700 series I2C differential pressure sensors.
 
 ![Ceedling](https://github.com/ojousima/ojousima.npa-700.c/workflows/Ceedling/badge.svg?branch=master)
 ![GH-Pages](https://github.com/ojousima/ojousima.npa-700.c/workflows/GH-Pages/badge.svg)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ojousima.npa-700.c&metric=coverage)](https://sonarcloud.io/dashboard?id=ojousima.npa-700.c)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ojousima.npa-700.c&metric=code_smells)](https://sonarcloud.io/dashboard?id=ojousima.npa-700.c)
 
 # Unit testing
 Unit tests are run by Ceedling.
