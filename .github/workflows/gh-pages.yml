@@ -47,7 +47,7 @@ jobs:
           pvs-studio-analyzer credentials  ${{ secrets.PVS_USERNAME }} ${{ secrets.PVS_KEY }}
 
     - name: Run PVS Studio
-      run: make all
+      run: make pvs
 
     - name: Install SSH Client 🔑
       uses: webfactory/ssh-agent@v0.2.0

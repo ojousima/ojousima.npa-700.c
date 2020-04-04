@@ -220,13 +220,15 @@ INCLUDES+=src/
 INC_PARAMS=$(foreach d, $(INCLUDES), -I$d)
 SOURCES=src/npa_700.c
 OBJECTS=$(SOURCES:.c=.o)
+ANALYSIS=$(SOURCES:.c=.a)
 IOBJECTS=$(SOURCES:.c=.o.PVS-Studio.i)
 POBJECTS=$(SOURCES:.c=.o.PVS-Studio.log)
 EXECUTABLE=npa-driver
+SONAR=npa-analysis
 
-.PHONY: clean doxygen
+.PHONY: clean doxygen pvs sonar
 
-all: clean $(SOURCES) $(EXECUTABLE) 
+pvs: clean $(SOURCES) $(EXECUTABLE) 
 
 $(EXECUTABLE): $(OBJECTS)
 # Converting
@@ -239,6 +241,16 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(CFLAGS) $< $(DFLAGS) $(INC_PARAMS) -E -o $@.PVS-Studio.i
 # Analysis
 	pvs-studio --cfg $(PVS_CFG) --source-file $< --i-file $@.PVS-Studio.i --output-file $@.PVS-Studio.log
+
+doxygen: clean
+	doxygen
+
+sonar: clean $(SOURCES) $(SONAR) 
+$(SONAR): $(ANALYSIS)
+
+.c.a:
+# Build
+	$(CXX) $(CFLAGS) $< $(DFLAGS) $(INC_PARAMS) $(OFLAGS) -o $@
 
 clean:
 	rm -f $(OBJECTS) $(IOBJECTS) $(POBJECTS)
