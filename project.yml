@@ -75,7 +75,7 @@
     :html_medium_threshold: 75
     :html_high_threshold: 90
     :xml_report: TRUE
-    :report_exclude: "src/ruuvi.drivers.c/BME280_driver|src/ruuvi.drivers.c/embedded-sht|src/ruuvi.drivers.c/STMems_Standard_C_drivers|nRF5_SDK_15.3.0_59ac345:|^build|^vendor|^test|^support"
+    :report_exclude: ""
 
 #:tools:
 # Ceedling defaults to using gcc for compiling, linking, etc.
