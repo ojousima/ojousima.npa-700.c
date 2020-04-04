@@ -29,6 +29,15 @@ jobs:
           working-directory: '.'
           doxyfile-path: 'Doxyfile'
 
+    # Error if doxygen.error has content
+    - name: Check documentation has no errors
+      script: |
+          if [[ $(wc -l <doxygen.error) -ge 0 ]]
+          then
+              cat doxygen.error
+              exit
+          fi
+
     - name: Install SSH Client 🔑
       uses: webfactory/ssh-agent@v0.2.0
       with:
