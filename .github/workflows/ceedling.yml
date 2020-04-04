@@ -21,7 +21,7 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    
+
     - name: Set up Ruby 2.6
       uses: actions/setup-ruby@v1
       with:
@@ -35,4 +35,3 @@ jobs:
     - name: Run a multi-line script
       run: |
         ceedling test:all
-        ceedling gcov:all utils:gcov
