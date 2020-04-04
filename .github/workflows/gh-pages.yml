@@ -22,12 +22,13 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    # Install Doxygen
+    - name: Install Doxygen
+      - sudo apt-get install -qq doxygen 
+
     # Generate doxygen
     - name: Generate docs
-      uses: mattnotmitt/doxygen-action@v1
-      with:
-          working-directory: '.'
-          doxyfile-path: 'Doxyfile'
+      run: doxygen
 
     # Error if doxygen.error has content
     - name: Check documentation has no errors
@@ -47,7 +48,7 @@ jobs:
           pvs-studio-analyzer credentials  ${{ secrets.PVS_USERNAME }} ${{ secrets.PVS_KEY }}
 
     - name: Run PVS Studio
-      run: sudo make pvs
+      run: make pvs
 
     - name: Install SSH Client 🔑
       uses: webfactory/ssh-agent@v0.2.0
