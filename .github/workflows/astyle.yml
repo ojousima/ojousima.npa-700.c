@@ -37,7 +37,7 @@ jobs:
 
     # Run Artistic Style
     - name: Run Astyle
-      run: make astyle
+      run: astyle --project=".astylerc" --recursive "src/"
         
     # Check output
     - name: Check formatting
