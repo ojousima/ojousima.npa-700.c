@@ -35,7 +35,7 @@ jobs:
           if [[ $(wc -l <doxygen.error) -ge 0 ]]
           then
               cat doxygen.error
-              exit
+              exit 1
           fi
 
     - name: Install SSH Client 🔑
