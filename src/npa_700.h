@@ -80,16 +80,6 @@ typedef npa_ret_t (*npa_read_fp) (const uint8_t i2c_addr,
                                   const uint8_t data_len);
 
 /**
- * @brief A wait function. 
- *
- * This function can be NULL, in which case the driver won't wait e.g. after 
- * initialization until data is ready. 
- * 
- * @param[in] ms Number of milliseconds to wait.
- **/ 
-typedef void (*npa_delay_ms_fp) (const uint16_t ms);
-
-/**
  * @brief Variants of NPA-700. 
  *
  * There are also variants for 5 V / 3.3 V operation (700 / 730) and
@@ -112,7 +102,6 @@ typedef struct
     const npa_write_fp write;   //!< I2C write function. Must not be NULL.
     const npa_write_fp read;    //!< I2C read function. Must not be NULL.
     const uint8_t npa_addr;     //!< I2C address of NPA-700.
-    const npa_delay_ms_fp wait; //!< Wait function. May be NULL.
     const npa_variant_t model;  //!< Model of the sensor used.
 }npa_ctx_t;
 
@@ -121,9 +110,10 @@ typedef struct
  *
  * This is relevant only if using a model with a sleep mode. 
  *
- * @return @ref npa_ret_t
+ * @param[in] sensor Sensor to trigger.
+ * @return @ref npa_ret_t.
  */
-npa_ret_t npa_read_trigger(void);
+npa_ret_t npa_read_trigger(const npa_ctx_t* const sensor);
 
 /** 
  * @brief Read pressure from sensor. 
@@ -131,12 +121,14 @@ npa_ret_t npa_read_trigger(void);
  * Reads latest sample from sensor. If using a sensor with sleep mode, calling this
  * function triggers new sample and returns stale data.
  *
- * param[out] pressure_pa Pressure in pascals. 
- * @return @ref npa_ret_t
+ * @param[in] sensor Sensor to read.
+ * @param[out] pressure_pa Pressure in pascals. 
+ * @return @ref npa_ret_t.
  *
  * @note Use system float as a type. 
  */
-npa_ret_t npa_read_pressure(float* const pressure_pa);
+npa_ret_t npa_read_pressure(const npa_ctx_t* const sensor,
+                            float* const pressure_pa);
 
 /** 
  * @brief Read pressure and 8-bit temperature from sensor. 
@@ -145,13 +137,15 @@ npa_ret_t npa_read_pressure(float* const pressure_pa);
  * function triggers new sample and returns stale data. Using lower resolution saves
  * a bit time as 9 bits less are clocked on the bus.
  *
- * param[out] pressure_pa Pressure in pascals. 
- * param[out] temperature Temperature in celcius.
- * @return @ref npa_ret_t
+ * @param[out] sensor Sensor to read.
+ * @param[out] pressure_pa   Pressure in pascals. 
+ * @param[out] temperature_c Temperature in celcius.
+ * @return @ref npa_ret_t.
  *
  * @note Use system float as a type. 
  */
-npa_ret_t npa_read_pressure_temp_lowres(float* const pressure_pa,
+npa_ret_t npa_read_pressure_temp_lowres(const npa_ctx_t* const sensor,
+                                        float* const pressure_pa,
                                         float* const temperature_c);
 
 /** 
@@ -160,13 +154,15 @@ npa_ret_t npa_read_pressure_temp_lowres(float* const pressure_pa,
  * Reads latest sample from sensor. If using a sensor with sleep mode, calling this
  * function triggers new sample and returns stale data.
  *
- * param[out] pressure_pa Pressure in pascals.
- * param[out] temperature Temperature in celcius.
- * @return @ref npa_ret_t
+ * @param[in] sensor Sensor to read.
+ * @param[out] pressure_pa   Pressure in pascals.
+ * @param[out] temperature_c Temperature in celcius.
+ * @return @ref npa_ret_t.
  *
  * @note Use system float as a type. 
  */
-npa_ret_t npa_read_pressure_temp_hires(float* const pressure_pa,
+npa_ret_t npa_read_pressure_temp_hires(const npa_ctx_t* const sensor,
+                                       float* const pressure_pa,
                                        float* const temperature_c);
 
 /*@}*/

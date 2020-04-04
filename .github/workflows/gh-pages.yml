@@ -7,11 +7,13 @@ name: GH-Pages
 on:
   push:
     branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  doxygen:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -20,10 +22,31 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    # Generate doxygen
+    - name: Generate docs
+      uses: mattnotmitt/doxygen-action@v1
+      with:
+          working-directory: '.'
+          doxyfile-path: 'Doxyfile'
+
+    # Error if doxygen.error has content
+    - name: Check documentation has no errors
+      run: |
+          if [[ $(wc -l <doxygen.error) -gt 0 ]]
+          then
+              cat doxygen.error
+              exit 1
+          fi
+
+    - name: Install SSH Client 🔑
+      uses: webfactory/ssh-agent@v0.2.0
+      with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
     # Deploy documents
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@3.4.6
       with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          SSH: true
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: doxygen # The folder the action should deploy.
