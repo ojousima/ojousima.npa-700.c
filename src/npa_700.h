@@ -165,5 +165,5 @@ npa_ret_t npa_read_pressure_temp_hires (const npa_ctx_t * const sensor,
                                         float * const pressure_pa,
                                         float * const temperature_c);
 
-/*@}*/
+/** @} */
 #endif // NPA_700_H
