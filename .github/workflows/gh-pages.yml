@@ -31,7 +31,7 @@ jobs:
 
     # Error if doxygen.error has content
     - name: Check documentation has no errors
-      script: |
+      run: |
           if [[ $(wc -l <doxygen.error) -ge 0 ]]
           then
               cat doxygen.error
