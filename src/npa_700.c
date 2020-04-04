@@ -36,7 +36,7 @@ npa_ret_t npa_read_pressure(float* const pressure_pa)
  * a bit time as 9 bits less are clocked on the bus.
  *
  * param[out] pressure_pa Pressure in pascals. 
- * param[out] temperature Temperature in celcius.
+ * param[out] temperature_c Temperature in celcius.
  * @return @ref npa_ret_t
  *
  * @note Use system float as a type. 
@@ -54,7 +54,7 @@ npa_ret_t npa_read_pressure_temp_lowres(float* const pressure_pa,
  * function triggers new sample and returns stale data.
  *
  * param[out] pressure_pa Pressure in pascals.
- * param[out] temperature Temperature in celcius.
+ * param[out] temperature_c Temperature in celcius.
  * @return @ref npa_ret_t
  *
  * @note Use system float as a type. 
