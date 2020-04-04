@@ -228,7 +228,7 @@ SONAR=npa-analysis
 
 .PHONY: clean doxygen pvs sonar
 
-pvs: clean $(SOURCES) $(EXECUTABLE) 
+pvs: $(SOURCES) $(EXECUTABLE) 
 
 $(EXECUTABLE): $(OBJECTS)
 # Converting
