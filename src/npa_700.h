@@ -12,8 +12,8 @@
  *
  * User must provide I2C write- and read functions as function pointers on initialization.
  * It is critical to ensure that write- and read functions will never block.
+ * @{
  */
-/*@{*/
 /**
  * @file npa_700.h
  * @author Otso Jousimaa <otso@ojousima.net>
@@ -165,5 +165,5 @@ npa_ret_t npa_read_pressure_temp_hires (const npa_ctx_t * const sensor,
                                         float * const pressure_pa,
                                         float * const temperature_c);
 
-/*@}*/
+/** @} */
 #endif // NPA_700_H
