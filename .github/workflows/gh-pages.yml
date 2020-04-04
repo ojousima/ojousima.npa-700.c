@@ -20,10 +20,15 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    - name: Install SSH Client 🔑
+      uses: webfactory/ssh-agent@v0.2.0
+      with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
     # Deploy documents
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@3.4.6
       with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          SSH: true
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: doxygen # The folder the action should deploy.
