@@ -64,3 +64,6 @@ doxygen.error
 # PVS Studio intermediary files
 *.PVS-Studio.i
 *.PVS-Studio.log
+
+# Astyle backups
+*.orig
