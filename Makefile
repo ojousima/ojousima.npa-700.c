@@ -206,6 +206,11 @@
 CXX=gcc
 
 PROJ_DIR := src
+PVS_CFG=./PVS-Studio.cfg
+# csv, errorfile, fullhtml, html, tasklist, xml
+LOG_FORMAT=fullhtml
+PVS_LOG=./doxygen/html
+DOXYGEN_DIR=./doxygen
 
 CFLAGS  = -c -Wall -pedantic -Wno-variadic-macros -Wno-long-long -Wno-shadow -std=c11
 OFLAGS=-g3
@@ -215,19 +220,42 @@ INCLUDES+=src/
 INC_PARAMS=$(foreach d, $(INCLUDES), -I$d)
 SOURCES=src/npa_700.c
 OBJECTS=$(SOURCES:.c=.o)
+ANALYSIS=$(SOURCES:.c=.a)
+IOBJECTS=$(SOURCES:.c=.o.PVS-Studio.i)
+POBJECTS=$(SOURCES:.c=.o.PVS-Studio.log)
 EXECUTABLE=npa-driver
+SONAR=npa-analysis
 
-.PHONY: clean doxygen
+.PHONY: clean doxygen pvs sonar
 
-all: clean $(SOURCES) $(EXECUTABLE) 
+pvs: $(SOURCES) $(EXECUTABLE) 
 
 $(EXECUTABLE): $(OBJECTS)
+# Converting
+	plog-converter -a 'GA:1,2,3;OP:1,2,3;CS:1,2,3;MISRA:1,2,3' -t $(LOG_FORMAT) $(POBJECTS) -o $(PVS_LOG)
 
 .c.o:
 # Build
 	$(CXX) $(CFLAGS) $< $(DFLAGS) $(INC_PARAMS) $(OFLAGS) -o $@
+# Preprocessing
+	$(CXX) $(CFLAGS) $< $(DFLAGS) $(INC_PARAMS) -E -o $@.PVS-Studio.i
+# Analysis
+	pvs-studio --cfg $(PVS_CFG) --source-file $< --i-file $@.PVS-Studio.i --output-file $@.PVS-Studio.log
+
+doxygen: clean
+	doxygen
+
+sonar: clean $(SOURCES) $(SONAR) 
+$(SONAR): $(ANALYSIS)
+
+.c.a:
+# Build
+	$(CXX) $(CFLAGS) $< $(DFLAGS) $(INC_PARAMS) $(OFLAGS) -o $@
 
 clean:
-	rm -f $(OBJECTS) $(IOBJECTS) $(POBJECTS) 
+	rm -f $(OBJECTS) $(IOBJECTS) $(POBJECTS)
+	rm -rf $(PVS_LOG)/fullhtml
+	rm -rf $(DOXYGEN_DIR)/html
+	rm -rf $(DOXYGEN_DIR)/latex
 	rm -f *.gcov
 
