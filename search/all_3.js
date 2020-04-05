@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['read',['read',['../structnpa__ctx__t.html#a9f037058b5bf6bacd57edf4b0a15691a',1,'npa_ctx_t']]]
+  ['write',['write',['../structnpa__ctx__t.html#ad6071ddcd1d473eafa786b29d95fe33c',1,'npa_ctx_t']]]
 ];
